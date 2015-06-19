@@ -185,51 +185,63 @@ public class parser_logo implements parser_logoConstants {
   }
 
   static final public Deplacement deplacement() throws ParseException {
+                              Token nombre;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case 16:
       jj_consume_token(16);
-      jj_consume_token(nbr);
+      nombre = jj_consume_token(nbr);
+    {if (true) return new Deplacement("avance",Integer.valueOf(nombre.toString()));}
       break;
     case 17:
       jj_consume_token(17);
-      jj_consume_token(nbr);
+      nombre = jj_consume_token(nbr);
+    {if (true) return new Deplacement("recule",Integer.valueOf(nombre.toString()));}
       break;
     case 18:
       jj_consume_token(18);
-      jj_consume_token(nbr);
+      nombre = jj_consume_token(nbr);
+    {if (true) return new Deplacement("tournedroite",Integer.valueOf(nombre.toString()));}
       break;
     case 19:
       jj_consume_token(19);
-      jj_consume_token(nbr);
+      nombre = jj_consume_token(nbr);
+    {if (true) return new Deplacement("tournegauche",Integer.valueOf(nombre.toString()));}
       break;
     default:
       jj_la1[6] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
+    throw new Error("Missing return statement in function");
   }
 
-  static final public Etat modifetat() throws ParseException {
+  static final public ModifEtat modifetat() throws ParseException {
+                          Token nombre; Token coloris;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case 20:
       jj_consume_token(20);
+    {if (true) return new ModifEtat("levecrayon",0);}
       break;
     case 21:
       jj_consume_token(21);
+    {if (true) return new ModifEtat("baissecrayon",0);}
       break;
     case 22:
       jj_consume_token(22);
-      jj_consume_token(nbr);
+      nombre = jj_consume_token(nbr);
+    {if (true) return new ModifEtat("taillecrayon",Integer.valueOf(nombre.toString()));}
       break;
     case 23:
       jj_consume_token(23);
-      jj_consume_token(couleur);
+      coloris = jj_consume_token(couleur);
+    {if (true) return new ModifEtat("couleur",coloris.toString());}
       break;
     default:
       jj_la1[7] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
+    throw new Error("Missing return statement in function");
   }
 
   static final public Efface efface() throws ParseException {

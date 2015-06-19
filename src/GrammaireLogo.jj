@@ -57,7 +57,7 @@ TOKEN : /* OPERATORS */
 TOKEN :
 {  
   < fonction : ["a"-"z"] (["a"-"z"] | ["0"-"9"])*>
-| < nbr :  (["0"-"9"])+ >
+| < nbr :  ["0"-"9"]|(["0"-"9"] ["0"-"9"] )|(["0"-"9"] ["0"-"9"] ["0"-"9"] ) >
 | < couleur :  ("Noir" | "Bleu" | "Rouge" | "Vert" | "Rose") >
 }
 
@@ -91,14 +91,21 @@ Commande cmd () : {}
 {
   < fonction >  |  deplacement() | modifetat() | efface()
 }
-Deplacement deplacement () : {}
+Deplacement deplacement () : {Token nombre;}
 {
-  ("AVANCE" < nbr >)  | ("RECULE" < nbr >)  | ("TOURNEDROITE" < nbr >)  |  ("TOURNEGAUCHE" < nbr >)
+  ("AVANCE" nombre = < nbr >
+  {    return new Deplacement("avance",Integer.valueOf(nombre.toString()));  }  )  | ("RECULE" nombre = < nbr >  {
+    return new Deplacement("recule",Integer.valueOf(nombre.toString()));
+  }
+  )  | ("TOURNEDROITE" nombre = < nbr >  {    return new Deplacement("tournedroite",Integer.valueOf(nombre.toString()));  }  )  |  ("TOURNEGAUCHE" nombre = < nbr >
+  {    return new Deplacement("tournegauche",Integer.valueOf(nombre.toString()));  }  )
 }
 
-Etat modifetat () : {}
+ModifEtat modifetat () : {Token nombre; Token coloris;}
 {
-  ("LEVECRAYON") | ("BAISSECRAYON") | ("TAILLECRAYON" < nbr >) | ("COULEUR" < couleur >)
+  ("LEVECRAYON"  {
+    return new ModifEtat("levecrayon",0);  }  ) | ("BAISSECRAYON"  {
+    return new ModifEtat("baissecrayon",0);  }  ) | ("TAILLECRAYON" nombre = < nbr >  {    return new ModifEtat("taillecrayon",Integer.valueOf(nombre.toString()));  }  ) | ("COULEUR" coloris = < couleur >  {    return new ModifEtat("couleur",coloris.toString());  }  )
 }
 
 Efface efface () : {}
