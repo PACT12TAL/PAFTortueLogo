@@ -1,30 +1,31 @@
-/**
- * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
- */
 options
 {
   static = true;
 }
 
-PARSER_BEGIN(logo_parser)
 
-public class logo_parser
+PARSER_BEGIN(parser_logo)
+
+import java.util.ArrayList;
+import classeDuProgramme.*;
+
+public class parser_logo
 {
   public static void main(String args []) throws ParseException
   {
-    logo_parser parser = new logo_parser(System.in);
+    parser_logo parser = new parser_logo (System.in);
     System.out.println("Reading from standard input...");
     System.out.print("Enter a valid Logo code :");
     try
     {
       program();
-      System.out.println("OK");
+      System.out.println("OK.");
     }
     catch (Exception e)
     {
       System.out.println("NOK.");
       System.out.println(e.getMessage());
-      logo_parser.ReInit(System.in);
+      parser_logo.ReInit(System.in);
     }
     catch (Error e)
     {
@@ -33,8 +34,8 @@ public class logo_parser
     }
   }
 }
+PARSER_END(parser_logo)
 
-PARSER_END(logo_parser)
 
 SKIP :
 {
@@ -45,41 +46,111 @@ SKIP :
 }
 
 
+TOKEN : /* OPERATORS */
+{
+  < PLUS : "+" >
+| < MINUS : "-" >
+| < MULTIPLY : "*" >
+| < DIVIDE : "/" >
+}
+
 TOKEN :
-{
-  < CONSTANT : (< DIGIT >)+ >
-| < #DIGIT : [ "0"-"9" ] >
-| < PRIMITIVE : ("AV" | "TD") >
-| < FUNCTION : ([ "a"-"z" ])+ ([ "a"-"z"] | ["0" - "9"])* >
+{  
+  < fonction : ["a"-"z"] (["a"-"z"] | ["0"-"9"])*>
+| < nbr :  ["0"-"9"]|(["0"-"9"] ["0"-"9"] )|(["0"-"9"] ["0"-"9"] ["0"-"9"] ) >
+| < couleur :  ("Noir" | "Bleu" | "Rouge" | "Vert" | "Rose") >
 }
 
-void program() :
-{}
+
+
+Programme program () : {}
 {
-  (command())* < EOF >
+  ( instruction() | def_fonction() )* < EOF >  {
+    Programme programme = new Programme();    return programme;  }  
 }
 
-void command() :
-{}
+
+DefFonction def_fonction () : {Token name;
+    ArrayList<Instruction > instructions = new ArrayList<Instruction >();
+    Instruction i; }
 {
-  (
-    "POUR" <  FUNCTION > (instruction())+ "FIN"
-	|  instruction()
-  )
+   "POUR" name = < fonction > (i = instruction()   {
+     instructions.add(i);   }
+   )+ "FIN"
+   {
+     DefFonction fonction = new DefFonction(name, instructions);
+     return fonction;
+   }
 }
 
-void instruction() :
-{}
+Instruction instruction () : {}
 {
-  <  PRIMITIVE > element()
-  {
-    System.err.println("Instruction");
+   ("REPETE" sum() (instruction())+ "FINREPETE") | cmd()   {
+     return instruction = new Instruction();   }   
+}
+
+Commande cmd () : {}
+{
+  < fonction >  |  deplacement() | modifetat() | efface()
+}
+Deplacement deplacement () : {Token nombre;}
+{
+  ("AVANCE" nombre = < nbr >
+  {    return new Deplacement("avance",Integer.valueOf(nombre.toString()));  }  )  | ("RECULE" nombre = < nbr >  {
+    return new Deplacement("recule",Integer.valueOf(nombre.toString()));
   }
+  )  | ("TOURNEDROITE" nombre = < nbr >  {    return new Deplacement("tournedroite",Integer.valueOf(nombre.toString()));  }  )  |  ("TOURNEGAUCHE" nombre = < nbr >
+  {    return new Deplacement("tournegauche",Integer.valueOf(nombre.toString()));  }  )
 }
 
+ModifEtat modifetat () : {Token nombre; Token coloris;}
+{
+  ("LEVECRAYON"  {
+    return new ModifEtat("levecrayon",0);  }  ) | ("BAISSECRAYON"  {
+    return new ModifEtat("baissecrayon",0);  }  ) | ("TAILLECRAYON" nombre = < nbr >  {    return new ModifEtat("taillecrayon",Integer.valueOf(nombre.toString()));  }  ) | ("COULEUR" coloris = < couleur >  {    return new ModifEtat("couleur",coloris.toString());  }  )
+}
+
+Efface efface () : {}
+{
+  ("EFFACE")
+}
+
+
+void sum() :
+{}
+{
+  term()
+  (
+    (
+      < PLUS >
+    | < MINUS >
+    )
+    term()
+  )*
+}
+
+void term() : {}
+{
+  unary()
+  (
+    (
+      < MULTIPLY >
+    | < DIVIDE >
+    )
+    unary()
+  )*
+}
+
+void unary() :
+{}
+{
+  < MINUS > element()
+| element()
+}
 
 void element() :
 {}
 {
-  < CONSTANT >
+  < nbr >
+| "(" sum() ")"
 }
