@@ -1,0 +1,147 @@
+options
+{
+  static = true;
+}
+
+
+PARSER_BEGIN(parser_logo)
+
+import java.util.ArrayList;
+import classeDuProgramme.*;
+
+public class parser_logo
+{
+  public static void main(String args []) throws ParseException
+  {
+    parser_logo parser = new parser_logo (System.in);
+    System.out.println("Reading from standard input...");
+    System.out.print("Enter a valid Logo code :");
+    try
+    {
+      program();
+      System.out.println("OK.");
+    }
+    catch (Exception e)
+    {
+      System.out.println("NOK.");
+      System.out.println(e.getMessage());
+      parser_logo.ReInit(System.in);
+    }
+    catch (Error e)
+    {
+      System.out.println("Oops.");
+      System.out.println(e.getMessage());
+    }
+  }
+}
+PARSER_END(parser_logo)
+
+
+SKIP :
+{
+  " "
+| "\r"
+| "\t"
+| "\n"
+}
+
+
+TOKEN : /* OPERATORS */
+{
+  < PLUS : "+" >
+| < MINUS : "-" >
+| < MULTIPLY : "*" >
+| < DIVIDE : "/" >
+}
+
+TOKEN :
+{  
+  < fonction : ["a"-"z"] (["a"-"z"] | ["0"-"9"])*>
+| < nbr :  (["0"-"9"])+ >
+| < couleur :  ("Noir" | "Bleu" | "Rouge" | "Vert" | "Rose") >
+}
+
+
+
+Programme program () : {}
+{
+  ( instruction() | def_fonction() )* < EOF >
+}
+
+
+DefFonction def_fonction () : {Token name;
+    ArrayList<Instruction > instructions = new ArrayList<Instruction >();
+    Instruction i; }
+{
+   "POUR" name = < fonction > (i = instruction()   {
+     instructions.add(i);   }
+   )+ "FIN"
+   {
+     DefFonction fonction = new DefFonction(name, instructions);
+     return fonction;
+   }
+}
+
+Instruction instruction () : {}
+{
+   ("REPETE" sum() (instruction())+ "FINREPETE") | cmd()
+}
+
+Commande cmd () : {}
+{
+  < fonction >  |  deplacement() | modifetat() | efface()
+}
+Deplacement deplacement () : {}
+{
+  ("AVANCE" < nbr >)  | ("RECULE" < nbr >)  | ("TOURNEDROITE" < nbr >)  |  ("TOURNEGAUCHE" < nbr >)
+}
+
+Etat modifetat () : {}
+{
+  ("LEVECRAYON") | ("BAISSECRAYON") | ("TAILLECRAYON" < nbr >) | ("COULEUR" < couleur >)
+}
+
+Efface efface () : {}
+{
+  ("EFFACE")
+}
+
+
+void sum() :
+{}
+{
+  term()
+  (
+    (
+      < PLUS >
+    | < MINUS >
+    )
+    term()
+  )*
+}
+
+void term() : {}
+{
+  unary()
+  (
+    (
+      < MULTIPLY >
+    | < DIVIDE >
+    )
+    unary()
+  )*
+}
+
+void unary() :
+{}
+{
+  < MINUS > element()
+| element()
+}
+
+void element() :
+{}
+{
+  < nbr >
+| "(" sum() ")"
+}
