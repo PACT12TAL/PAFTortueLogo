@@ -152,12 +152,14 @@ public class parser_logo implements parser_logoConstants {
     case 23:
     case 24:
       cmd();
+     {if (true) return instruction = new Instruction();}
       break;
     default:
       jj_la1[4] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
+    throw new Error("Missing return statement in function");
   }
 
   static final public Commande cmd() throws ParseException {

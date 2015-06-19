@@ -85,7 +85,8 @@ DefFonction def_fonction () : {Token name;
 
 Instruction instruction () : {}
 {
-   ("REPETE" sum() (instruction())+ "FINREPETE") | cmd()
+   ("REPETE" sum() (instruction())+ "FINREPETE") | cmd()   {
+     return instruction = new Instruction();   }   
 }
 
 Commande cmd () : {}
