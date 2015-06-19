@@ -65,7 +65,8 @@ TOKEN :
 
 Programme program () : {}
 {
-  ( instruction() | def_fonction() )* < EOF >
+  ( instruction() | def_fonction() )* < EOF >  {
+    Programme programme = new Programme();    return programme;  }  
 }
 
 

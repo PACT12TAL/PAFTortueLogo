@@ -72,6 +72,9 @@ public class parser_logo implements parser_logoConstants {
       }
     }
     jj_consume_token(0);
+    Programme programme = new Programme();
+    {if (true) return programme;}
+    throw new Error("Missing return statement in function");
   }
 
   static final public DefFonction def_fonction() throws ParseException {
