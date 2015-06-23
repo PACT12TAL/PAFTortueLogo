@@ -2,7 +2,6 @@ package classeDuProgramme;
 
 public abstract class Commande extends Instruction
 {
-<<<<<<< HEAD
 	//pour definir la commande
 	String nom;
 	int nombre;
@@ -25,15 +24,4 @@ public abstract class Commande extends Instruction
 	{
 		return( (int)Math.round(x) ) ;
 	}
-=======
-
-	public Commande(String name) {
-		super(name);
-	}
-
-	public void executer() 
-	{
-	}
-	
->>>>>>> 778e895dc1ea5a8669d52079a69512affbbb495b
 }

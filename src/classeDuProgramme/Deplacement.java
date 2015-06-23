@@ -3,7 +3,6 @@ import java.lang.Math;
 
 public class Deplacement extends Commande
 {
-<<<<<<< HEAD
 	
 	public Deplacement(String name,int number) 
 	{
@@ -41,39 +40,4 @@ public class Deplacement extends Commande
 		return etatApres;
 	}
 
-=======
-	public Deplacement(String name) {
-		super(name);
-	}
-
-	int nbr;
-	
-	public void executer ()
-	{
-		
-		switch(name)
-		{
-			case "avance":
-				x+=nbr*Math.sin(angle);
-				y+=nbr*Math.cos(angle);
-				System.out.println(x+y);
-				break;
-			case "recule":
-				x-=nbr*Math.sin(angle);
-				y-=nbr*Math.cos(angle);
-				System.out.println(x+y);
-				break;
-			case "tournedroite":
-				angle+=nbr;
-				System.out.println(angle);
-				break;
-			case "tournegauche":
-				angle-=nbr;
-				System.out.println(angle);
-				break;		
-		}
-		
-		
-	}
->>>>>>> 778e895dc1ea5a8669d52079a69512affbbb495b
 }
