@@ -19,9 +19,9 @@ public class Fonction extends Commande
 		if (this.verify()) {
 			ArrayList<Instruction> instructions = programme.getFonctionsList().get(nom).getInstructions();
 			for (int i = 0; i < instructions.size(); i++){
-				instructions.get(i).executerInstruction(etat); //TODO
+				etat = instructions.get(i).executerInstruction(etat);
 			}
-			return null; //TODO implements return
+			return etat;
 		}
 		else {
 			throw new FonctionUndefinedException();
