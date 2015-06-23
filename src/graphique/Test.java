@@ -26,7 +26,7 @@ public class Test extends JFrame {
 	public Test(){
 		initializegui();
 	}
-	@Override
+	
 	public void paint(Graphics arg0) {
 		super.paint(arg0);
 		packgui();

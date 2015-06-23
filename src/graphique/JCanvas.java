@@ -1,5 +1,6 @@
 package graphique;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -45,6 +46,11 @@ public class JCanvas extends JPanel {
     	repaint();
     }
     
+    public void setPenSize(int size)
+    {
+    	g2d.setStroke(new BasicStroke(size));
+    }
+    
     public void changeColor(String string){
     	switch(string){
     	case "red":
@@ -59,6 +65,8 @@ public class JCanvas extends JPanel {
     	case "pink":
     		g2d.setColor(Color.PINK);
     		break;
+    	case "transparent":
+    		g2d.setColor(new Color(0,0,0,0));
         default:
         	break;
         }
