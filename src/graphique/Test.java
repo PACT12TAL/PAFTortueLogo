@@ -1,4 +1,4 @@
-package classeDuProgramme;
+package graphique;
 import javax.swing.*;
 
 import java.awt.*;

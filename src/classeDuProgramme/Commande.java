@@ -1,5 +1,7 @@
 package classeDuProgramme;
 
+import graphique.JCanvas;
+
 public abstract class Commande extends Instruction
 {
 	//pour definir la commande

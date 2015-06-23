@@ -1,4 +1,4 @@
-package classeDuProgramme;
+package graphique;
 
 public class Tortue {
 	private int x;
