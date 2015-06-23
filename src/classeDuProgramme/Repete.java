@@ -1,11 +1,13 @@
 package classeDuProgramme;
 
-public class Repete 
+import java.util.ArrayList;
+
+public class Repete extends Instruction
 {	
 	private int nbreRepete;
-	private Instruction instr;
+	private ArrayList<Instruction> instr;
 	
-	public Repete(int nbreRepete , Instruction instr)
+	public Repete(int nbreRepete , ArrayList<Instruction> instr)
 	{
 		this.nbreRepete = nbreRepete;
 		this.instr = instr ;
@@ -14,11 +16,28 @@ public class Repete
 		
 	}
 
-	public void executeRepete ()
+	public Etat executerInstruction(Etat etat) throws FonctionUndefinedException
 	{
+		Etat et = etat;
 		for(int i = 0 ; i< nbreRepete ; i++)
 		{
-			instr.executerInstruction();
+			for (Instruction instruction : instr)
+			{
+				et = instruction.executerInstruction(et);
+			}
+			
 		}
+		return et;
 	}
+
+	public void setProgramme (Programme p)
+	{
+		programme = p ;
+		for (Instruction instruction : instr)
+		{
+			instruction.setProgramme(p);
+		}
+		
+	}
+
 }

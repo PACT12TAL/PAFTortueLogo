@@ -8,17 +8,11 @@ public class Efface extends Commande
 	}
 
 	
-	public Etat executer(Etat etatAvant)
+	public Etat executerInstruction(Etat etatAvant)
 	{	
 		Etat etatApres = new Etat (0.0 , 0.0 , 0.0 , 1 , 1 , "noir" ) ;
-		efface();
+		feuille.clear();
 		return etatApres;
 	}
-	
-	private void efface() 
-	{
-		// methode qui doit enlever tous les anciens traits		
-	}
-
 
 }

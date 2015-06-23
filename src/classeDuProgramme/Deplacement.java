@@ -10,20 +10,23 @@ public class Deplacement extends Commande
 				
 	}
 	
-	public Etat executer (Etat etatAvant)
+	
+	public Etat executerInstruction (Etat etatAvant)
 	{		
 		Etat etatApres = new Etat (etatAvant.getX(), etatAvant.getY(), etatAvant.getAngle(), etatAvant.getCrayonBaisse(), etatAvant.getTailleCrayon(), etatAvant.getCouleur()) ;
 		
 		switch(nom)
 		{
 			case "avance":
-				etatApres.addToX(nombre*Math.sin((( etatApres.getAngle() *Math.PI)*180)));  
-				etatApres.addToY(nombre*Math.cos((( etatApres.getAngle() *Math.PI)*180)));
+				etatApres.addToX(nombre*Math.sin((( etatApres.getAngle() *Math.PI)/180)));  
+				etatApres.addToY(nombre*Math.cos((( etatApres.getAngle() *Math.PI)/180)));
+				feuille.drawLine(Conv(etatAvant.getX()),Conv(etatAvant.getY()),Conv(etatApres.getX()),Conv(etatApres.getY()));				
 				break;
 				
 			case "recule":
-				etatApres.addToX(nombre*Math.sin((( etatApres.getAngle() *Math.PI)*180)));
-				etatApres.addToY(nombre*Math.cos((( etatApres.getAngle() *Math.PI)*180)));
+				etatApres.addToX(nombre*Math.sin((( etatApres.getAngle() *Math.PI)/180)));
+				etatApres.addToY(nombre*Math.cos((( etatApres.getAngle() *Math.PI)/180)));
+				feuille.drawLine(Conv(etatAvant.getX()),Conv(etatAvant.getY()),Conv(etatApres.getX()),Conv(etatApres.getY()));			
 				break;
 				
 			case "tournedroite":

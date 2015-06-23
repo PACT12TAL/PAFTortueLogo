@@ -95,6 +95,8 @@ public class Etat
 		{
 			this.angle += angle;
 		}
-		
-		
+	
+		public String toString() {
+			return ("("+x+","+y+"), angle : " + angle + " taillecrayon : " + taillecrayon + " crayonbaisse : " + crayonbaisse + " couleur : " + couleur) ;
+		}
 }

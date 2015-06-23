@@ -11,7 +11,7 @@ public class ModifEtat extends Commande
 		super(name, string);
 	}
 
-	public Etat executer(Etat etatAvant) 
+	public Etat executerInstruction(Etat etatAvant) 
 	{
 		Etat etatApres = new Etat (etatAvant.getX(), etatAvant.getY(), etatAvant.getAngle(), etatAvant.getCrayonBaisse(), etatAvant.getTailleCrayon(), etatAvant.getCouleur()) ;
 		
@@ -33,6 +33,6 @@ public class ModifEtat extends Commande
 				etatApres.setCouleur(mot);
 				break;		
 		}
-		return null;
+		return etatApres;
 	}
 }

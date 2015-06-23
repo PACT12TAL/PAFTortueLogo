@@ -6,7 +6,7 @@ public abstract class Commande extends Instruction
 	String nom;
 	int nombre;
 	String mot;
-	
+	JCanvas feuille = new JCanvas() ;
 
 	public Commande(String name,int number) 
 	{
@@ -18,8 +18,10 @@ public abstract class Commande extends Instruction
 	{
 		nom = name;
 		mot = string;
+	}	
+	
+	public int Conv(double x)
+	{
+		return( (int)Math.round(x) ) ;
 	}
-	abstract Etat executer(Etat etat); 
-	
-	
 }

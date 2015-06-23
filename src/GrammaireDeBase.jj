@@ -1,32 +1,219 @@
-/**
- * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
- */options{  static = true;}PARSER_BEGIN(parser_logo)
-public class parser_logo{  public static void main(String args []) throws ParseException  {    parser_logo parser = new parser_logo (System.in);    while (true)    {      System.out.println("Reading from standard input...");      System.out.print("Enter an expression like \"1+(2+3)*4;\" :");      try      {        switch (parser_logo.one_line())        {          case 0 :           System.out.println("OK.");          break;          case 1 :           System.out.println("Goodbye.");          break;          default :           break;        }      }      catch (Exception e)      {        System.out.println("NOK.");        System.out.println(e.getMessage());        parser_logo.ReInit(System.in);      }      catch (Error e)      {        System.out.println("Oops.");        System.out.println(e.getMessage());        break;      }    }  }}PARSER_END(parser_logo)SKIP :{  " "| "\r"| "\t"| "\n"}TOKEN : /* OPERATORS */{  < PLUS : "+" >| < MINUS : "-" >| < MULTIPLY : "*" >| < DIVIDE : "/" >}TOKEN :{  < CONSTANT : (< DIGIT >)+ >| < #DIGIT : [ "0"-"9" ] >}
-void program () : {}{
-  }
-int one_line() :{}{  sum() ";"  {    return 0;  }| ";"  {    return 1;  }}void sum() :{}{  term()  (    (      < PLUS >    | < MINUS >    )    term()  )*}void term() : {}{  unary()  (    (      < MULTIPLY >    | < DIVIDE >    )    unary()  )*}void unary() :{}{  < MINUS > element()| element()}void element() :{}{  < CONSTANT >| "(" sum() ")"}
-
-
-TOKEN :
+options
 {
-  < ID : ["a"-"z"] (["a"-"z"] | ["0"-"9"])*>
+  static = true;
 }
 
 
-TOKEN :
+PARSER_BEGIN(parser_logo)
+
+import java.util.ArrayList;
+import classeDuProgramme.*;
+
+public class parser_logo
 {
-  < nbre :  ["0"-"9"] ["0"-"9"] ["0"-"9"] >
+  public static void main(String args []) throws ParseException
+  {
+    parser_logo parser = new parser_logo (System.in);
+    System.out.println("Reading from standard input...");
+    System.out.print("Enter a valid Logo code :");
+    try
+    {
+      Programme programme = program();
+      System.out.println("OK.");
+      Etat etatCourant = programme.executerProgramme();
+      System.out.println(etatCourant.toString());
+    }
+    catch (Exception e)
+    {
+      System.out.println("NOK.");
+      e.printStackTrace();
+      parser_logo.ReInit(System.in);
+    }
+    catch (Error e)
+    {
+      System.out.println("Oops.");
+      e.printStackTrace();
+    }
+  }
+}
+PARSER_END(parser_logo)
+
+
+SKIP :
+{
+  " "
+| "\r"
+| "\t"
+| "\n"
 }
 
 
-TOKEN :
+TOKEN : /* OPERATORS */
 {
-  < taillecrayon :  ["1"-"3"] >
+  < PLUS : "+" >
+| < MINUS : "-" >
+| < MULTIPLY : "*" >
+| < DIVIDE : "/" >
+}
+
+TOKEN :
+{  
+  < fonction : ["a"-"z"] (["a"-"z"] | ["0"-"9"])*>
+| < nbr :  ["0"-"9"]|(["0"-"9"] ["0"-"9"] )|(["0"-"9"] ["0"-"9"] ["0"-"9"] ) >
+| < couleur :  ("Noir" | "Bleu" | "Rouge" | "Vert" | "Rose") >
 }
 
 
-TOKEN :
+
+Programme program () : {Instruction instr; DefFonction defF;}
 {
-  < couleur :  "noir" | "bleu" | "rouge" | "vert" | "rose" >
+  {
+    Programme programme = new Programme();
+  }
+  ( instr = instruction()
+    {
+      programme.addInstruction(instr);
+    }
+  | defF = def_fonction()
+    {
+      programme.addFonction(defF);
+    }
+  )* < EOF >
+  {
+    return programme;
+  }
+  
 }
 
+
+DefFonction def_fonction () : {Token name;
+    ArrayList<Instruction > instructions = new ArrayList<Instruction >();
+    Instruction i; }
+{
+   "POUR" name = < fonction > (i = instruction()
+   {
+     instructions.add(i);
+   }
+   )+ "FIN"
+   {
+     DefFonction fonction = new DefFonction(name.toString(), instructions);
+     return fonction;
+   }
+}
+
+Instruction instruction () :{Token nbreRepete; Instruction i; Commande c;	
+  ArrayList<Instruction > instructions = new ArrayList<Instruction >();
+}
+{
+    ("REPETE" nbreRepete = < nbr > ( i = instruction()
+   	{
+	  instructions.add(i);	  
+	}
+	)+ "FINREPETE"
+	{
+	  Repete repete = new Repete (Integer.parseInt(nbreRepete.toString()), instructions);
+	  return repete;
+	}
+   	) | c = cmd()   	{   	  return c;
+   	} 
+
+}
+
+Commande cmd () : {Token name; Commande c;}
+{
+  name = < fonction >
+  {
+    Fonction fonction = new Fonction(name.toString(), 0); 
+    return fonction;
+  } |  (c = deplacement()| c = modifetat() | c = efface())  {    return c;  }  
+}
+
+Deplacement deplacement () : {Token nombre;}
+{
+  ("AVANCE" nombre = < nbr >
+  {
+    return new Deplacement("avance",Integer.valueOf(nombre.toString()));
+  }
+  )  | ("RECULE" nombre = < nbr >
+  {
+    return new Deplacement("recule",Integer.valueOf(nombre.toString()));
+  }
+  )  | ("TOURNEDROITE" nombre = < nbr >
+  {
+    return new Deplacement("tournedroite",Integer.valueOf(nombre.toString()));
+  }
+  )  |  ("TOURNEGAUCHE" nombre = < nbr >
+  {
+    return new Deplacement("tournegauche",Integer.valueOf(nombre.toString()));
+  }
+  )
+}
+
+ModifEtat modifetat () : {Token nombre; Token coloris;}
+{
+  ("LEVECRAYON"
+  {
+    return new ModifEtat("levecrayon",0);
+  }
+  ) | ("BAISSECRAYON"
+  {
+    return new ModifEtat("baissecrayon",0);
+  }
+  ) | ("TAILLECRAYON" nombre = < nbr >
+  {
+    return new ModifEtat("taillecrayon",Integer.valueOf(nombre.toString()));
+  }
+  ) | ("COULEUR" coloris = < couleur >
+  {
+    return new ModifEtat("couleur",coloris.toString());
+  }
+  )
+}
+
+Efface efface () : {}
+{
+  "EFFACE"
+  {
+    return new Efface("efface", 0);
+  }
+}
+
+
+void sum() :
+{}
+{
+  term()
+  (
+    (
+      < PLUS >
+    | < MINUS >
+    )
+    term()
+  )*
+}
+
+void term() : {}
+{
+  unary()
+  (
+    (
+      < MULTIPLY >
+    | < DIVIDE >
+    )
+    unary()
+  )*
+}
+
+void unary() :
+{}
+{
+  < MINUS > element()
+| element()
+}
+
+void element() :
+{}
+{
+  < nbr >
+| "(" sum() ")"
+}
