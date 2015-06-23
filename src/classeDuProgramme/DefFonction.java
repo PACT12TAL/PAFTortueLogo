@@ -7,6 +7,7 @@ public class DefFonction {
 	private ArrayList<Instruction> instructions;
 	private Programme programme;
 	
+<<<<<<< HEAD
 	public DefFonction(String name, ArrayList<Instruction> instructions) 
 	{
 		this.instructions = instructions;
@@ -34,3 +35,21 @@ public class DefFonction {
 	}
 
 }
+=======
+	public DefFonction(String name, ArrayList<Instruction> instructions) {
+		this.instructions = instructions;
+		this.name = name;
+		this.programme = null;
+		this.programme.add(this);
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
+	public ArrayList<Instruction> getInstructions() {
+		return this.instructions;
+	}
+
+}
+>>>>>>> 778e895dc1ea5a8669d52079a69512affbbb495b

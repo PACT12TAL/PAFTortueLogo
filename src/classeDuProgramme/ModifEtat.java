@@ -1,5 +1,6 @@
 package classeDuProgramme;
 
+<<<<<<< HEAD
 public class ModifEtat extends Commande
 {
 	public ModifEtat(String name, int number) 
@@ -35,4 +36,8 @@ public class ModifEtat extends Commande
 		}
 		return etatApres;
 	}
+=======
+public class ModifEtat {
+
+>>>>>>> 778e895dc1ea5a8669d52079a69512affbbb495b
 }
