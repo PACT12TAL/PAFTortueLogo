@@ -1,5 +1,4 @@
 package classeDuProgramme;
-
 import javax.swing.*;
 
 import java.awt.*;
@@ -10,7 +9,7 @@ import java.awt.event.*;
 
 
 /**
- * classe Test
+ * class Test
  * 
  *
  */
@@ -20,7 +19,6 @@ public class Test extends JFrame {
 	private JButton b1;
 	private JButton b2;
 	private JLabel lab;
-	private JMenu menu;
 	private JMenuBar menuBar;
 	private JTextArea text;
 
@@ -38,7 +36,7 @@ public class Test extends JFrame {
 	
 	private final void initializegui(){
 		setVisible(true);
-		setSize(1200, 700);
+		setSize(1000, 700);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		p1=new JPanel();
@@ -57,15 +55,30 @@ public class Test extends JFrame {
 		JScrollPane jsp = new JScrollPane(text,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
-		p2.add(b2);
+		jcanvas = new JCanvas();
+		jcanvas.drawLine(200,200);
+		jcanvas.changeColor("pink");
+		jcanvas.drawLine(500, 500);
+		add(jcanvas,BorderLayout.CENTER);
 		
-
+		b2.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				jcanvas.clear();
+				text.setText("");
+				//lab.setText("");
+			}
+		});
+		p2.add(b2);
+	
+		
 		b1.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
 				String str=text.getText();
-				lab.setText(str);
+				lab.setText(str);				
 			}
 		});
 		//p1.add(lab);
@@ -100,18 +113,63 @@ public class Test extends JFrame {
 		add(p2,BorderLayout.SOUTH);
 		
 		
+		/*ActionListener afficherMenuListener = new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				System.out.println("Elément de menu [" + event.getActionCommand()+ "] utilisé.");
+			}
+		};*/
+
+
+			JMenu fichierMenu = new JMenu("File");
+			JMenuItem item = new JMenuItem("New", 'N');
+			item.addActionListener(new ActionListener()
+			{
+				public void actionPerformed(ActionEvent e)
+				{
+					jcanvas.clear();
+					text.setText("");
+					lab.setText("");
+				}
+			});
+			fichierMenu.add(item);
+			
+			
+			
+			item = new JMenuItem("Open", 'O');
+			item.addActionListener(new ActionListener(){
+				 public void actionPerformed(ActionEvent event) {
+					   JFileChooser chooser = new JFileChooser();
+					    chooser.showOpenDialog(null);
+				    }
+			});
+			fichierMenu.add(item);
+			
+			
+			
+			item = new JMenuItem("Save", 'S');
+			item.addActionListener(new ActionListener(){
+				 public void actionPerformed(ActionEvent event) {
+					   JFileChooser chooser = new JFileChooser();
+					    chooser.showSaveDialog(null);
+				    }
+			});
+			fichierMenu.insertSeparator(1);
+			fichierMenu.add(item);
+			
+			
+			
+			item = new JMenuItem("Quit",'Q');
+			item.addActionListener(new ActionListener() {
+			    @Override
+			    public void actionPerformed(ActionEvent event) {
+			        System.exit(0);
+			    }
+			});
+			fichierMenu.add(item);
 		
-		//Be able to read a complete program to paint
-		menu=new JMenu("File");
-		//JMenuItem item1 = new JMenuItem("New file", 'N');
-		//JMenuItem item2 = new JMenuItem("Open", 'N');
-		menuBar= new JMenuBar();
-		menuBar.add(menu);
-		setJMenuBar(menuBar);
-		
-		jcanvas = new JCanvas();
-	 
-		add(jcanvas,BorderLayout.CENTER);
+			menuBar= new JMenuBar();
+			menuBar.add(fichierMenu);
+			setJMenuBar(menuBar);
 	     
 	    ImageIcon img= new ImageIcon("tortue ninja.png");
 	    setIconImage(img.getImage());
@@ -123,6 +181,7 @@ public class Test extends JFrame {
 		jcanvas.repaint();
 	}
 
+	
 	
 	public static void main(String[] args){
 		 SwingUtilities.invokeLater(new Runnable() {
