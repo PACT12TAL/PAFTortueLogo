@@ -58,7 +58,7 @@ public class Test extends JFrame {
 		jcanvas = new JCanvas();
 		jcanvas.drawLine(200,200);
 		jcanvas.changeColor("pink");
-		jcanvas.drawLine(500, 500);
+		jcanvas.drawLine(90, 250);
 		add(jcanvas,BorderLayout.CENTER);
 		
 		b2.addActionListener(new ActionListener()

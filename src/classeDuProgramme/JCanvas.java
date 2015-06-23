@@ -59,6 +59,8 @@ public class JCanvas extends JPanel {
     	case "pink":
     		g2d.setColor(Color.PINK);
     		break;
+    	case "black":
+    		g2d.setColor(Color.BLACK);
         default:
         	break;
         }
