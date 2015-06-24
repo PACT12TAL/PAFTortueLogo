@@ -17,12 +17,14 @@ public class ModifEtat extends Commande
 				
 		switch(nom)
 		{
-			case "levecrayon" :		
+			case "levecrayon" :	
+				etatApres.setCrayonBaisse(0);
 				programme.getFeuille().changeColor("transparent");
 				break;
 				
 			case "baissecrayon" :
-				programme.getFeuille().changeColor(etatApres.getCouleur());
+				etatApres.setCrayonBaisse(1);
+				programme.getFeuille().changeColor(etatAvant.getCouleur());
 				break;
 				
 			case "taillecrayon" :

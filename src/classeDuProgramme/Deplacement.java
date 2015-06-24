@@ -19,14 +19,14 @@ public class Deplacement extends Commande
 		switch(nom)
 		{
 			case "avance":
-				etatApres.addToX(nombre*Math.sin((( etatApres.getAngle() *Math.PI)/180)));  
-				etatApres.addToY(nombre*Math.cos((( etatApres.getAngle() *Math.PI)/180)));
+				etatApres.addToX(nombre*Math.cos((( etatApres.getAngle() *Math.PI)/180)));  
+				etatApres.addToY(nombre*Math.sin((( etatApres.getAngle() *Math.PI)/180)));
 				programme.getFeuille().drawLine(Conv(etatApres.getX()),Conv(etatApres.getY()));				
 				break;
 				
 			case "recule":
-				etatApres.addToX(nombre*Math.sin((( etatApres.getAngle() *Math.PI)/180)));
-				etatApres.addToY(nombre*Math.cos((( etatApres.getAngle() *Math.PI)/180)));
+				etatApres.addToX((-1) * nombre*Math.cos((( etatApres.getAngle() *Math.PI)/180)));
+				etatApres.addToY((-1) * nombre*Math.sin((( etatApres.getAngle() *Math.PI)/180)));
 				programme.getFeuille().drawLine(Conv(etatApres.getX()),Conv(etatApres.getY()));			
 				break;
 				

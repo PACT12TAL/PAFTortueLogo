@@ -46,7 +46,7 @@ public class Main extends JFrame {
 		
 		b1=new JButton("Enter"); 
 		b2=new JButton("Clear");  //add listener to "Clear" button
-		lab=new JLabel("Press ENTER, your instructions will be displayed here:)");
+		lab=new JLabel("");   //Press ENTER, your instructions will be displayed here:)");
 		text=new JTextArea("Enter the instructions", 4, 10);   
 		//text.setLineWrap(true);
 		//add listeners to this JTextFiled after the background program is done
@@ -74,7 +74,7 @@ public class Main extends JFrame {
 			public void actionPerformed(ActionEvent e)
 			{
 				String str=text.getText();
-				lab.setText(str);
+				//lab.setText(str);
 				
 				InputStream input = new ByteArrayInputStream(str.getBytes());
 				parser_logo parser = new parser_logo (input);

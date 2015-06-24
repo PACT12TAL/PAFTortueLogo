@@ -9,6 +9,9 @@ public class Etat
 		private int crayonbaisse;
 		private int taillecrayon;
 		private String couleur;
+		public static final double tailleFeuille = 400.0 ;
+		public static final double milieuF = (tailleFeuille/2) ;
+		
 		
 		public Etat (double x , double y , double angle , int cbaisse , int tcrayon , String couleur)
 		{
@@ -22,7 +25,7 @@ public class Etat
 		
 		public Etat ()
 		{
-			this(0.0 , 0.0 , 0.0 , 1 , 1 , "noir") ;
+			this(milieuF , milieuF , -90.0 , 1 , 1 , "Noir") ;
 		}
 		
 		
@@ -110,6 +113,6 @@ public class Etat
 		}
 	
 		public String toString() {
-			return ("("+x+","+y+"), angle : " + angle + " taillecrayon : " + taillecrayon + " crayonbaisse : " + crayonbaisse ) ;
+			return ("couleur =  " + couleur +   "("+x+","+y+"), angle : " + angle + " taillecrayon : " + taillecrayon + " crayonbaisse : " + crayonbaisse ) ;
 		}
 }

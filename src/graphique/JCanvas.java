@@ -14,11 +14,11 @@ import javax.swing.JPanel;
 public class JCanvas extends JPanel {
 	
     private Graphics2D g2d;
-    private int width=50;
-    private int height=50;
+    private int width=400;
+    private int height=400;
     private BufferedImage bimg=new BufferedImage(width,height, BufferedImage.TYPE_INT_ARGB);
     private ImageIcon tortueImg=new ImageIcon("TortueConceptuellePetit.png");
-    private Tortue tortue = new Tortue(25,25);
+    private Tortue tortue = new Tortue(200,200);
     
     public JCanvas(){
     	g2d = bimg.createGraphics();
@@ -53,16 +53,19 @@ public class JCanvas extends JPanel {
     
     public void changeColor(String string){
     	switch(string){
-    	case "red":
+    	case "Noir":
+    		g2d.setColor(Color.BLACK);
+    		break;
+    	case "Rouge":
     		g2d.setColor(Color.RED);
     		break;
-    	case "green":
+    	case "Vert":
     		g2d.setColor(Color.GREEN);
     		break;
-    	case "blue":
+    	case "Bleu":
     		g2d.setColor(Color.BLUE);
     		break;
-    	case "pink":
+    	case "Rose":
     		g2d.setColor(Color.PINK);
     		break;
     	case "transparent":
