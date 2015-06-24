@@ -20,12 +20,7 @@ public class Main extends JFrame {
 	private JLabel lab;
 	private JMenuBar menuBar;
 	private JTextArea text;
-	private Etat etatCourant = new Etat();
 
-	/*public static void reInitEtatCourant ()
-	{
-		etatCourant = new Etat(); 
-	}*/
 	
 	public Main(){
 		initializegui();

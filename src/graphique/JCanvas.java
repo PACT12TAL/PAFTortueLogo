@@ -29,6 +29,17 @@ public class JCanvas extends JPanel {
     private Etat etatCourant = new Etat();
     
     
+	public Etat getEtatCourant() 
+	{
+		return etatCourant;
+	}
+
+	public void setEtatCourant(Etat etatCourant) 
+	{
+		this.etatCourant = etatCourant;
+	}
+    
+    
     public JCanvas(){
     	g2d = bimg.createGraphics();
     	gtortue = btortue.createGraphics();
@@ -62,7 +73,7 @@ public class JCanvas extends JPanel {
 		tortue.setAngle(0);
 		repaint();
 		g2d.setStroke(new BasicStroke(1));
-		setEtatCourant(new Etat());
+		etatCourant = new Etat();
 
 		g2d.setColor(Color.BLACK);
     }	
@@ -82,8 +93,10 @@ public class JCanvas extends JPanel {
     	g2d.setStroke(new BasicStroke(size));
     }
     
-    public void changeColor(String string){
-    	switch(string){
+    public void changeColor(String string)
+    {
+    	switch(string)
+    	{
     	case "Noir":
     		g2d.setColor(Color.BLACK);
     		break;
@@ -106,11 +119,5 @@ public class JCanvas extends JPanel {
         }
     }
 
-	public Etat getEtatCourant() {
-		return etatCourant;
-	}
 
-	public void setEtatCourant(Etat etatCourant) {
-		this.etatCourant = etatCourant;
-	}
 }
