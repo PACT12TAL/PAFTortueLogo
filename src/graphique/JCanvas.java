@@ -14,11 +14,11 @@ import javax.swing.JPanel;
 public class JCanvas extends JPanel {
 	
     private Graphics2D g2d;
-    private int width=1000;
-    private int height=700;
+    private int width=50;
+    private int height=50;
     private BufferedImage bimg=new BufferedImage(width,height, BufferedImage.TYPE_INT_ARGB);
     private ImageIcon tortueImg=new ImageIcon("TortueConceptuellePetit.png");
-    private Tortue tortue = new Tortue(500,350);
+    private Tortue tortue = new Tortue(25,25);
     
     public JCanvas(){
     	g2d = bimg.createGraphics();

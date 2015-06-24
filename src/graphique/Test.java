@@ -184,8 +184,8 @@ public class Test extends JFrame {
 	
 	
 	public static void main(String[] args){
-		 SwingUtilities.invokeLater(new Runnable() {
-	     @Override
+		 SwingUtilities.invokeLater(new Runnable() 
+		 {
 	     public void run() {
 	          Test ex = new Test();
 	              ex.setVisible(true);

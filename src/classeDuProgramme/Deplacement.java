@@ -21,13 +21,13 @@ public class Deplacement extends Commande
 			case "avance":
 				etatApres.addToX(nombre*Math.sin((( etatApres.getAngle() *Math.PI)/180)));  
 				etatApres.addToY(nombre*Math.cos((( etatApres.getAngle() *Math.PI)/180)));
-				feuille.drawLine(Conv(etatApres.getX()),Conv(etatApres.getY()));				
+				programme.getFeuille().drawLine(Conv(etatApres.getX()),Conv(etatApres.getY()));				
 				break;
 				
 			case "recule":
 				etatApres.addToX(nombre*Math.sin((( etatApres.getAngle() *Math.PI)/180)));
 				etatApres.addToY(nombre*Math.cos((( etatApres.getAngle() *Math.PI)/180)));
-				feuille.drawLine(Conv(etatApres.getX()),Conv(etatApres.getY()));			
+				programme.getFeuille().drawLine(Conv(etatApres.getX()),Conv(etatApres.getY()));			
 				break;
 				
 			case "tournedroite":

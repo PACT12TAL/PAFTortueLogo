@@ -11,8 +11,8 @@ public class Efface extends Commande
 	public Etat executerInstruction(Etat etatAvant)
 	{	
 		Etat etatApres = new Etat (0.0 , 0.0 , 0.0 , 1 , 1 , "noir") ;
-		feuille.changeColor("black");
-		feuille.clear();
+		programme.getFeuille().changeColor("black");
+		programme.getFeuille().clear();
 		return etatApres;
 	}
 

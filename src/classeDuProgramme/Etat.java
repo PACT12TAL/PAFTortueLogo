@@ -20,6 +20,12 @@ public class Etat
 			this.couleur = couleur;
 		}
 		
+		public Etat ()
+		{
+			this(0.0 , 0.0 , 0.0 , 1 , 1 , "noir") ;
+		}
+		
+		
 		public Etat clone()
 		{
 			return new Etat (x, y, angle, crayonbaisse, taillecrayon , couleur) ;

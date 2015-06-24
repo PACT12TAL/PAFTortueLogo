@@ -18,21 +18,21 @@ public class ModifEtat extends Commande
 		switch(nom)
 		{
 			case "levecrayon" :		
-				feuille.changeColor("transparent");
+				programme.getFeuille().changeColor("transparent");
 				break;
 				
 			case "baissecrayon" :
-				feuille.changeColor(etatApres.getCouleur());
+				programme.getFeuille().changeColor(etatApres.getCouleur());
 				break;
 				
 			case "taillecrayon" :
 				etatApres.setTailleCrayon(nombre);
-				feuille.setPenSize(nombre);
+				programme.getFeuille().setPenSize(nombre);
 				break;
 				
 			case "couleur":
 				etatApres.setCouleur(mot);
-				feuille.changeColor(mot);
+				programme.getFeuille().changeColor(mot);
 				break;		
 		}
 		return etatApres;

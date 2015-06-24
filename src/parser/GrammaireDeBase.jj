@@ -1,41 +1,18 @@
 options
 {
-  static = true;
+  static = false;
 }
-
 
 PARSER_BEGIN(parser_logo)
 
+package parser;
+
 import java.util.ArrayList;
 import classeDuProgramme.*;
+import graphique.*;
 
-public class parser_logo
-{
-  public static void main(String args []) throws ParseException
-  {
-    parser_logo parser = new parser_logo (System.in);
-    System.out.println("Reading from standard input...");
-    System.out.print("Enter a valid Logo code :");
-    try
-    {
-      Programme programme = program();
-      System.out.println("OK.");
-      Etat etatCourant = programme.executerProgramme();
-      System.out.println(etatCourant.toString());
-    }
-    catch (Exception e)
-    {
-      System.out.println("NOK.");
-      e.printStackTrace();
-      parser_logo.ReInit(System.in);
-    }
-    catch (Error e)
-    {
-      System.out.println("Oops.");
-      e.printStackTrace();
-    }
-  }
-}
+public class parser_logo {}
+
 PARSER_END(parser_logo)
 
 
@@ -65,10 +42,10 @@ TOKEN :
 
 
 
-Programme program () : {Instruction instr; DefFonction defF;}
+Programme program (JCanvas feuille) : {Instruction instr; DefFonction defF;}
 {
   {
-    Programme programme = new Programme();
+    Programme programme = new Programme(feuille);
   }
   ( instr = instruction()
     {

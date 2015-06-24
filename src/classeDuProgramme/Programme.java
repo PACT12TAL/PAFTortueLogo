@@ -1,15 +1,19 @@
 package classeDuProgramme;
 
+import graphique.JCanvas;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Programme {
 	private HashMap<String, DefFonction> fonctionsList;
 	private ArrayList<Instruction> instructionsList;
+	private JCanvas feuille;
 	
-	public Programme() {
+	public Programme(JCanvas feuille) {
 		this.fonctionsList = new HashMap<String, DefFonction>();
 		this.instructionsList = new ArrayList<Instruction>();
+		this.feuille = feuille;
 	}
 	
 	public HashMap<String, DefFonction> getFonctionsList(){
@@ -47,6 +51,11 @@ public class Programme {
 		}
 		
 		return etat;
+	}
+	
+	public JCanvas getFeuille () 
+	{
+		return feuille;
 	}
 
 }
