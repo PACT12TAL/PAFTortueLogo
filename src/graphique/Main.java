@@ -22,6 +22,10 @@ public class Main extends JFrame {
 	private JTextArea text;
 	private Etat etatCourant = new Etat();
 
+	/*public static void reInitEtatCourant ()
+	{
+		etatCourant = new Etat(); 
+	}*/
 	
 	public Main(){
 		initializegui();
@@ -43,10 +47,10 @@ public class Main extends JFrame {
 		p2=new JPanel();
 		p2.setBackground(Color.WHITE);
 		
-		b1=new JButton("Enter"); 
-		b2=new JButton("Clear");  //add listener to "Clear" button
-		lab=new JLabel("Press ENTER, your instructions will be displayed here:)");
-		text=new JTextArea("Enter the instructions", 4, 10);   
+		b1=new JButton("Exécuter"); 
+		b2=new JButton("Efface");  //add listener to "Clear" button
+		lab=new JLabel("");
+		text=new JTextArea("Ecrivez vos commandes", 4, 10);   
 		text.setLineWrap(true);
 		//add listeners to this JTextFiled after the background program is done
 		
@@ -78,8 +82,6 @@ public class Main extends JFrame {
 			public void actionPerformed(ActionEvent e)
 			{
 				String str=text.getText();
-				lab.setText(str);
-				
 				InputStream input = new ByteArrayInputStream(str.getBytes());
 				parser_logo parser = new parser_logo (input);
 				try
@@ -91,13 +93,13 @@ public class Main extends JFrame {
 			    }
 			    catch (Exception exc)
 			    {
-			      System.out.println("NOK.");
+			      lab.setText("Erreur : instruction incorrecte");
 			      exc.printStackTrace();
 			    }
 			}
 			
 		});
-		//p1.add(lab);
+
 		
 		add(p1,BorderLayout.NORTH);
 				
@@ -135,8 +137,8 @@ public class Main extends JFrame {
 		};*/
 
 
-			JMenu fichierMenu = new JMenu("File");
-			JMenuItem item = new JMenuItem("New", 'N');
+			JMenu fichierMenu = new JMenu("Fichier");
+			JMenuItem item = new JMenuItem("Nouveau", 'N');
 			item.addActionListener(new ActionListener()
 			{
 				public void actionPerformed(ActionEvent e)
@@ -150,7 +152,7 @@ public class Main extends JFrame {
 			
 			
 			
-			item = new JMenuItem("Open", 'O');
+			item = new JMenuItem("Ouvrir", 'O');
 			item.addActionListener(new ActionListener(){
 				 public void actionPerformed(ActionEvent event) {
 					   JFileChooser chooser = new JFileChooser();
@@ -161,7 +163,7 @@ public class Main extends JFrame {
 			
 			
 			
-			item = new JMenuItem("Save", 'S');
+			item = new JMenuItem("Sauvegarder", 'S');
 			item.addActionListener(new ActionListener(){
 				 public void actionPerformed(ActionEvent event) {
 					   JFileChooser chooser = new JFileChooser();
@@ -173,7 +175,7 @@ public class Main extends JFrame {
 			
 			
 			
-			item = new JMenuItem("Quit",'Q');
+			item = new JMenuItem("Quitter",'Q');
 			item.addActionListener(new ActionListener() {
 			    @Override
 			    public void actionPerformed(ActionEvent event) {

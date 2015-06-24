@@ -11,8 +11,11 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.math.*;
+
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+
+import classeDuProgramme.Etat;
 
 public class JCanvas extends JPanel {
     private Graphics2D g2d, gtortue;
@@ -23,6 +26,8 @@ public class JCanvas extends JPanel {
     private BufferedImage bimg=new BufferedImage(width,height, BufferedImage.TYPE_INT_ARGB);
     private BufferedImage btortue = new BufferedImage(width, height,  BufferedImage.TYPE_INT_ARGB);
     private Tortue tortue = new Tortue(230,230);
+    private Etat etatCourant = new Etat();
+    
     
     public JCanvas(){
     	g2d = bimg.createGraphics();
@@ -56,9 +61,12 @@ public class JCanvas extends JPanel {
 		tortue.moveTortue(230,230);
 		tortue.setAngle(0);
 		repaint();
-		
+		g2d.setStroke(new BasicStroke(1));
+		setEtatCourant(new Etat());
+
 		g2d.setColor(Color.BLACK);
-    }
+    }	
+	
 
     public void drawLine(int x, int y){
     	g2d.drawLine(tortue.getX(), tortue.getY(), x, y);
@@ -97,4 +105,12 @@ public class JCanvas extends JPanel {
         	break;
         }
     }
+
+	public Etat getEtatCourant() {
+		return etatCourant;
+	}
+
+	public void setEtatCourant(Etat etatCourant) {
+		this.etatCourant = etatCourant;
+	}
 }
