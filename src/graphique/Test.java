@@ -1,5 +1,6 @@
-package classeDuProgramme;
+package graphique;
 import javax.swing.*;
+
 
 import java.awt.*;
 import java.awt.event.*;
@@ -14,6 +15,7 @@ import java.awt.event.*;
  *
  */
 public class Test extends JFrame {
+	private JCanvas jc = new JCanvas();
 	private JPanel p1;
 	private JPanel p2;
 	private JButton b1;
@@ -31,8 +33,6 @@ public class Test extends JFrame {
 		super.paint(arg0);
 		packgui();
 	}
-	JCanvas jcanvas;
-	
 	
 	private final void initializegui(){
 		setVisible(true);
@@ -49,23 +49,28 @@ public class Test extends JFrame {
 		b2=new JButton("Clear");  //add listener to "Clear" button
 		lab=new JLabel("Press ENTER, your instructions will be displayed here:)");
 		text=new JTextArea("Enter the instructions", 4, 10);   
-		//text.setLineWrap(true);
+		text.setLineWrap(true);
 		//add listeners to this JTextFiled after the background program is done
 		
 		JScrollPane jsp = new JScrollPane(text,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
-		jcanvas = new JCanvas();
-		jcanvas.drawLine(200,200);
-		jcanvas.changeColor("pink");
-		jcanvas.drawLine(90, 250);
-		add(jcanvas,BorderLayout.CENTER);
+		jc.rotateTurtle(2);
+		jc.drawLine(100,15);
+		
+		JPanel jp =new JPanel();
+		jp.setLayout(null);
+
+		jp.add(jc);
+		jc.setSize(800,800);
+		
+		add(jp,BorderLayout.CENTER);
 		
 		b2.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				jcanvas.clear();
+				jc.clear();
 				text.setText("");
 				//lab.setText("");
 			}
@@ -85,7 +90,6 @@ public class Test extends JFrame {
 		
 		add(p1,BorderLayout.NORTH);
 				
-		
 		GroupLayout layout = new GroupLayout(p1);
 		p1.setLayout(layout);
 
@@ -126,7 +130,7 @@ public class Test extends JFrame {
 			{
 				public void actionPerformed(ActionEvent e)
 				{
-					jcanvas.clear();
+					jc.clear();
 					text.setText("");
 					lab.setText("");
 				}
@@ -171,14 +175,14 @@ public class Test extends JFrame {
 			menuBar.add(fichierMenu);
 			setJMenuBar(menuBar);
 	     
-	    ImageIcon img= new ImageIcon("tortue ninja.png");
+	    ImageIcon img= new ImageIcon("TortueConceptuelle.png");
 	    setIconImage(img.getImage());
 	    
 	
 	}
 	private final void packgui(){
 		//pack();
-		jcanvas.repaint();
+		jc.repaint();
 	}
 
 	
@@ -188,7 +192,7 @@ public class Test extends JFrame {
 	     @Override
 	     public void run() {
 	          Test ex = new Test();
-	              ex.setVisible(true);
+	          ex.setVisible(true);
 	            }
 	        });
 	}
