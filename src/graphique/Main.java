@@ -1,20 +1,17 @@
 package graphique;
 import javax.swing.*;
 
+import parser.parser_logo;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
+import classeDuProgramme.*;
 
 
-
-
-
-/**
- * class Test
- * 
- *
- */
-public class Test extends JFrame {
+public class Main extends JFrame {
 	private JCanvas jc = new JCanvas();
 	private JPanel p1;
 	private JPanel p2;
@@ -23,12 +20,13 @@ public class Test extends JFrame {
 	private JLabel lab;
 	private JMenuBar menuBar;
 	private JTextArea text;
+	private Etat etatCourant = new Etat();
 
 	
-	public Test(){
+	public Main(){
 		initializegui();
 	}
-	@Override
+	
 	public void paint(Graphics arg0) {
 		super.paint(arg0);
 		packgui();
@@ -47,7 +45,7 @@ public class Test extends JFrame {
 		
 		b1=new JButton("Enter"); 
 		b2=new JButton("Clear");  //add listener to "Clear" button
-		lab=new JLabel("Press ENTER, your instructions will be displayed here:)");
+		lab=new JLabel("");   //Press ENTER, your instructions will be displayed here:)");
 		text=new JTextArea("Enter the instructions", 4, 10);   
 		text.setLineWrap(true);
 		//add listeners to this JTextFiled after the background program is done
@@ -72,7 +70,7 @@ public class Test extends JFrame {
 			{
 				jc.clear();
 				text.setText("");
-				//lab.setText("");
+				lab.setText("");
 			}
 		});
 		p2.add(b2);
@@ -83,8 +81,24 @@ public class Test extends JFrame {
 			public void actionPerformed(ActionEvent e)
 			{
 				String str=text.getText();
-				lab.setText(str);				
+				//lab.setText(str);
+				
+				InputStream input = new ByteArrayInputStream(str.getBytes());
+				parser_logo parser = new parser_logo (input);
+				try
+			    {
+			      Programme programme = parser.program(jc);
+			      System.out.println("OK.");
+			      etatCourant = programme.executerProgramme(etatCourant);
+			      System.out.println(etatCourant.toString());
+			    }
+			    catch (Exception exc)
+			    {
+			      System.out.println("NOK.");
+			      exc.printStackTrace();
+			    }
 			}
+			
 		});
 		//p1.add(lab);
 		
@@ -186,14 +200,16 @@ public class Test extends JFrame {
 	}
 
 	
-	
-	public static void main(String[] args){
-		 SwingUtilities.invokeLater(new Runnable() {
-	     @Override
-	     public void run() {
-	          Test ex = new Test();
-	          ex.setVisible(true);
-	            }
-	        });
+	public static void main(String[] args)
+	{
+		 SwingUtilities.invokeLater(new Runnable() 
+		 	{
+			 public void run() 
+			 {
+	          Main main = new Main();
+	          main.setVisible(true);
+	         }
+		 	}
+		 );
 	}
 }

@@ -8,7 +8,6 @@ public abstract class Commande extends Instruction
 	String nom;
 	int nombre;
 	String mot;
-	JCanvas feuille = new JCanvas() ;
 
 	public Commande(String name,int number) 
 	{

@@ -69,30 +69,30 @@ public class JCanvas extends JPanel {
         tortue.setAngle(angle);
     }
     
-    public void setPenSize(int size){
+    public void setPenSize(int size)
+    {
     	g2d.setStroke(new BasicStroke(size));
-    	
     }
+    
     public void changeColor(String string){
     	switch(string){
-    	case "red":
+    	case "Noir":
+    		g2d.setColor(Color.BLACK);
+    		break;
+    	case "Rouge":
     		g2d.setColor(Color.RED);
     		break;
-    	case "green":
+    	case "Vert":
     		g2d.setColor(Color.GREEN);
     		break;
-    	case "blue":
+    	case "Bleu":
     		g2d.setColor(Color.BLUE);
     		break;
-    	case "pink":
+    	case "Rose":
     		g2d.setColor(Color.PINK);
-    		break;
-    	case "black":
-    		g2d.setColor(Color.BLACK);
     		break;
     	case "transparent":
     		g2d.setColor(new Color(0,0,0,0));
-    		break;
         default:
         	break;
         }

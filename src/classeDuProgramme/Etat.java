@@ -9,6 +9,9 @@ public class Etat
 		private int crayonbaisse;
 		private int taillecrayon;
 		private String couleur;
+		public static final double tailleFeuille = 400.0 ;
+		public static final double milieuF = (tailleFeuille/2) ;
+		
 		
 		public Etat (double x , double y , double angle , int cbaisse , int tcrayon , String couleur)
 		{
@@ -17,7 +20,18 @@ public class Etat
 			this.angle = angle;
 			this.crayonbaisse = cbaisse; // 1 si le crayon est baisse (la tortue écrit) ; 0 sinon
 			this.taillecrayon = tcrayon;
-			this.couleur = couleur;			
+			this.couleur = couleur;
+		}
+		
+		public Etat ()
+		{
+			this(milieuF , milieuF , -90.0 , 1 , 1 , "Noir") ;
+		}
+		
+		
+		public Etat clone()
+		{
+			return new Etat (x, y, angle, crayonbaisse, taillecrayon , couleur) ;
 		}
 		
 		// getters
@@ -36,6 +50,11 @@ public class Etat
 			return this.angle;
 		}
 		
+		public final String getCouleur () 
+		{
+			return this.couleur;
+		}
+		
 		public final int getCrayonBaisse () 
 		{
 			return this.crayonbaisse;
@@ -46,11 +65,7 @@ public class Etat
 			return this.taillecrayon;
 		}
 		
-		public final String getCouleur () 
-		{
-			return this.couleur;
-		}
-		
+		//setters
 		public final void setX (double x) 
 		{
 			this.x = x;
@@ -81,6 +96,7 @@ public class Etat
 			this.couleur = couleur;
 		}
 		
+		//pour ajouter directement
 		public final void addToX (double x) 
 		{
 			this.x += x;
@@ -97,6 +113,6 @@ public class Etat
 		}
 	
 		public String toString() {
-			return ("("+x+","+y+"), angle : " + angle + " taillecrayon : " + taillecrayon + " crayonbaisse : " + crayonbaisse + " couleur : " + couleur) ;
+			return ("couleur =  " + couleur +   "("+x+","+y+"), angle : " + angle + " taillecrayon : " + taillecrayon + " crayonbaisse : " + crayonbaisse ) ;
 		}
 }
