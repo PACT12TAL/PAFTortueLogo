@@ -12,6 +12,7 @@ import classeDuProgramme.*;
 
 
 public class Main extends JFrame {
+	private JCanvas jc = new JCanvas();
 	private JPanel p1;
 	private JPanel p2;
 	private JButton b1;
@@ -30,8 +31,6 @@ public class Main extends JFrame {
 		super.paint(arg0);
 		packgui();
 	}
-	JCanvas jcanvas;
-	
 	
 	private final void initializegui(){
 		setVisible(true);
@@ -48,20 +47,28 @@ public class Main extends JFrame {
 		b2=new JButton("Clear");  //add listener to "Clear" button
 		lab=new JLabel("Press ENTER, your instructions will be displayed here:)");
 		text=new JTextArea("Enter the instructions", 4, 10);   
-		//text.setLineWrap(true);
+		text.setLineWrap(true);
 		//add listeners to this JTextFiled after the background program is done
 		
 		JScrollPane jsp = new JScrollPane(text,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
-		jcanvas = new JCanvas();
-		add(jcanvas,BorderLayout.CENTER);
+		jc.rotateTurtle(2);
+		jc.drawLine(100,15);
+		
+		JPanel jp =new JPanel();
+		jp.setLayout(null);
+
+		jp.add(jc);
+		jc.setSize(800,800);
+		
+		add(jp,BorderLayout.CENTER);
 		
 		b2.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				jcanvas.clear();
+				jc.clear();
 				text.setText("");
 				lab.setText("");
 			}
@@ -80,7 +87,7 @@ public class Main extends JFrame {
 				parser_logo parser = new parser_logo (input);
 				try
 			    {
-			      Programme programme = parser.program(jcanvas);
+			      Programme programme = parser.program(jc);
 			      System.out.println("OK.");
 			      etatCourant = programme.executerProgramme(etatCourant);
 			      System.out.println(etatCourant.toString());
@@ -97,7 +104,6 @@ public class Main extends JFrame {
 		
 		add(p1,BorderLayout.NORTH);
 				
-		
 		GroupLayout layout = new GroupLayout(p1);
 		p1.setLayout(layout);
 
@@ -138,7 +144,7 @@ public class Main extends JFrame {
 			{
 				public void actionPerformed(ActionEvent e)
 				{
-					jcanvas.clear();
+					jc.clear();
 					text.setText("");
 					lab.setText("");
 				}
@@ -183,17 +189,16 @@ public class Main extends JFrame {
 			menuBar.add(fichierMenu);
 			setJMenuBar(menuBar);
 	     
-	    ImageIcon img= new ImageIcon("tortue ninja.png");
+	    ImageIcon img= new ImageIcon("TortueConceptuelle.png");
 	    setIconImage(img.getImage());
 	    
 	
 	}
 	private final void packgui(){
 		//pack();
-		jcanvas.repaint();
+		jc.repaint();
 	}
 
-	
 	
 	public static void main(String[] args)
 	{
