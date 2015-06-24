@@ -83,8 +83,8 @@ public class Main extends JFrame {
 			    {
 			      Programme programme = parser.program(jc);
 			      System.out.println("OK.");
-			      etatCourant = programme.executerProgramme(etatCourant);
-			      System.out.println(etatCourant.toString());
+			      jc.setEtatCourant(programme.executerProgramme(jc.getEtatCourant()));
+			      System.out.println(( jc.getEtatCourant() ).toString());
 			    }
 			    catch (Exception exc)
 			    {
@@ -172,7 +172,7 @@ public class Main extends JFrame {
 			
 			item = new JMenuItem("Quitter",'Q');
 			item.addActionListener(new ActionListener() {
-			    @Override
+			    
 			    public void actionPerformed(ActionEvent event) {
 			        System.exit(0);
 			    }
