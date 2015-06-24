@@ -9,8 +9,6 @@ public abstract class Instruction
 	public String string;
 	public ArrayList<String> Instruction= new ArrayList<String>();
 	public Programme programme;
-	public static final double tailleFeuille = 400.0 ;
-	public static final double milieuF = (tailleFeuille/2) ;
 	
 	public Instruction ()
 	{}
