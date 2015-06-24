@@ -18,11 +18,11 @@ public class JCanvas extends JPanel {
     private Graphics2D g2d, gtortue;
     private ImageIcon tortueImg=new ImageIcon("TortueConceptuellePetit.png");
     private ImageIcon img = new ImageIcon("Background.jpg");
-    private int width=800;
-    private int height=800;
+    private int width=460;
+    private int height=460;
     private BufferedImage bimg=new BufferedImage(width,height, BufferedImage.TYPE_INT_ARGB);
     private BufferedImage btortue = new BufferedImage(width, height,  BufferedImage.TYPE_INT_ARGB);
-    private Tortue tortue = new Tortue(500,300);
+    private Tortue tortue = new Tortue(230,230);
     
     public JCanvas(){
     	g2d = bimg.createGraphics();
@@ -53,7 +53,7 @@ public class JCanvas extends JPanel {
 		g2d.fillRect(0,0,width,height);
 		//reset composite
 		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
-		tortue.moveTortue(500,300);
+		tortue.moveTortue(230,230);
 		tortue.setAngle(0);
 		repaint();
 		

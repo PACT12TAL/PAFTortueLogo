@@ -57,7 +57,7 @@ public class Main extends JFrame {
 		jp.setLayout(null);
 
 		jp.add(jc);
-		jc.setSize(800,800);
+		jc.setSize(460,460);
 		
 		add(jp,BorderLayout.CENTER);
 		

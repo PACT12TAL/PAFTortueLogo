@@ -9,7 +9,7 @@ public class Etat
 		private int crayonbaisse;
 		private int taillecrayon;
 		private String couleur;
-		public static final double tailleFeuille = 400.0 ;
+		public static final double tailleFeuille = 460.0 ;
 		public static final double milieuF = (tailleFeuille/2) ;
 		
 		
