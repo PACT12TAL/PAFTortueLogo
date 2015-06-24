@@ -53,9 +53,6 @@ public class Main extends JFrame {
 		JScrollPane jsp = new JScrollPane(text,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
-		jc.rotateTurtle(2);
-		jc.drawLine(100,15);
-		
 		JPanel jp =new JPanel();
 		jp.setLayout(null);
 
