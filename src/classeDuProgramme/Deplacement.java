@@ -32,12 +32,13 @@ public class Deplacement extends Commande
 				
 			case "tournedroite":
 				etatApres.addToAngle(nombre);
-				programme.getFeuille().rotateTurtle(ConvRadian(etatApres.getAngle()));
+				System.out.println(nombre  + " // " +  ConvRadian(nombre));
+				programme.getFeuille().rotateTurtleRight(ConvRadian(nombre));
 				break;
 				
 			case "tournegauche":
 				etatApres.addToAngle((-1) * nombre);
-				programme.getFeuille().rotateTurtle(ConvRadian(etatApres.getAngle()));
+				programme.getFeuille().rotateTurtleLeft(ConvRadian(nombre));
 				break;		
 		}
 		return etatApres;

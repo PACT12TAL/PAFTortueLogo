@@ -20,6 +20,3 @@ public class Efface extends Commande
 	}
 
 }
-
-
-// JCanvas.setEtatCourant(programme.executerProgramme(JCanvas.getEtatCourant()));
