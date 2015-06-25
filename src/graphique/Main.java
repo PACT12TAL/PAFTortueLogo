@@ -5,7 +5,10 @@ import parser.parser_logo;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 
 import classeDuProgramme.*;
@@ -20,7 +23,6 @@ public class Main extends JFrame {
 	private JLabel lab;
 	private JMenuBar menuBar;
 	private JTextArea text;
-	private Etat etatCourant = new Etat();
 
 	
 	public Main(){
@@ -43,16 +45,15 @@ public class Main extends JFrame {
 		p2=new JPanel();
 		p2.setBackground(Color.WHITE);
 		
-		b1=new JButton("Enter"); 
-		b2=new JButton("Clear");  //add listener to "Clear" button
-		lab=new JLabel("Press ENTER, your instructions will be displayed here:)");
-		text=new JTextArea("Enter the instructions", 4, 10);   
+		b1=new JButton("Executer"); 
+		b2=new JButton("Efface");  //add listener to "Clear" button
+		lab=new JLabel("");
+		text=new JTextArea("Ecrivez vos commandes", 4, 10);   
 		text.setLineWrap(true);
 		//add listeners to this JTextFiled after the background program is done
 		
 		JScrollPane jsp = new JScrollPane(text,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		
 		
 		JPanel jp =new JPanel() {
 			public void paint(Graphics g) {
@@ -63,11 +64,11 @@ public class Main extends JFrame {
 				jc.repaint();
 			}
 		};
+
 		jp.setLayout(null);
 
-		jp.add(jc,BorderLayout.CENTER);
-		jc.setSize(800,800);
-		jc.rotateTurtleRight(1.50);
+		jp.add(jc);
+		jc.setSize(460,460);
 		
 		add(jp,BorderLayout.CENTER);
 		
@@ -88,26 +89,24 @@ public class Main extends JFrame {
 			public void actionPerformed(ActionEvent e)
 			{
 				String str=text.getText();
-				lab.setText(str);
-				
 				InputStream input = new ByteArrayInputStream(str.getBytes());
 				parser_logo parser = new parser_logo (input);
 				try
 			    {
 			      Programme programme = parser.program(jc);
 			      System.out.println("OK.");
-			      etatCourant = programme.executerProgramme(etatCourant);
-			      System.out.println(etatCourant.toString());
+			      jc.setEtatCourant(programme.executerProgramme(jc.getEtatCourant()));
+			      System.out.println(( jc.getEtatCourant() ).toString());
 			    }
 			    catch (Exception exc)
 			    {
-			      System.out.println("NOK.");
+			      lab.setText("Erreur : instruction incorrecte");
 			      exc.printStackTrace();
 			    }
 			}
 			
 		});
-		//p1.add(lab);
+
 		
 		add(p1,BorderLayout.NORTH);
 				
@@ -145,8 +144,8 @@ public class Main extends JFrame {
 		};*/
 
 
-			JMenu fichierMenu = new JMenu("File");
-			JMenuItem item = new JMenuItem("New", 'N');
+			JMenu fichierMenu = new JMenu("Fichier");
+			JMenuItem item = new JMenuItem("Nouveau", 'N');
 			item.addActionListener(new ActionListener()
 			{
 				public void actionPerformed(ActionEvent e)
@@ -160,7 +159,7 @@ public class Main extends JFrame {
 			
 			
 			
-			item = new JMenuItem("Open", 'O');
+			item = new JMenuItem("Ouvrir", 'O');
 			item.addActionListener(new ActionListener(){
 				 public void actionPerformed(ActionEvent event) {
 					   JFileChooser chooser = new JFileChooser();
@@ -171,11 +170,22 @@ public class Main extends JFrame {
 			
 			
 			
-			item = new JMenuItem("Save", 'S');
+			item = new JMenuItem("Sauvegarder", 'S');
 			item.addActionListener(new ActionListener(){
 				 public void actionPerformed(ActionEvent event) {
 					   JFileChooser chooser = new JFileChooser();
-					    chooser.showSaveDialog(null);
+					    int returnVal=chooser.showSaveDialog(null);
+					    
+					    if (returnVal==JFileChooser.APPROVE_OPTION){
+					    	File file = chooser.getSelectedFile();
+					    	BufferedImage bi=(BufferedImage) jc.getParent().createImage(jc.getWidth(),jc.getHeight());
+					    	jc.getParent().paint(bi.getGraphics());
+					    	try{
+					    		javax.imageio.ImageIO.write(bi, "jpg", file);
+					    	}catch(IOException e1){
+					    		e1.printStackTrace();
+					    	}
+					    }
 				    }
 			});
 			fichierMenu.insertSeparator(1);
@@ -183,9 +193,9 @@ public class Main extends JFrame {
 			
 			
 			
-			item = new JMenuItem("Quit",'Q');
+			item = new JMenuItem("Quitter",'Q');
 			item.addActionListener(new ActionListener() {
-			    @Override
+			    
 			    public void actionPerformed(ActionEvent event) {
 			        System.exit(0);
 			    }
