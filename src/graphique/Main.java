@@ -55,7 +55,16 @@ public class Main extends JFrame {
 		JScrollPane jsp = new JScrollPane(text,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
-		JPanel jp =new JPanel();
+		JPanel jp =new JPanel() {
+			public void paint(Graphics g) {
+				super.paint(g); 
+				g.setColor(Color.WHITE);
+				g.fillRect(0, 0, getWidth(), getHeight());
+				jc.setLocation(jc.getParent().getWidth()/2-jc.getWidth()/2, 0);
+				jc.repaint();
+			}
+		};
+
 		jp.setLayout(null);
 
 		jp.add(jc);
@@ -169,8 +178,8 @@ public class Main extends JFrame {
 					    
 					    if (returnVal==JFileChooser.APPROVE_OPTION){
 					    	File file = chooser.getSelectedFile();
-					    	BufferedImage bi=(BufferedImage) jp.createImage(jc.getWidth(),jc.getHeight());
-					    	jp.paint(bi.getGraphics());
+					    	BufferedImage bi=(BufferedImage) jc.getParent().createImage(jc.getWidth(),jc.getHeight());
+					    	jc.getParent().paint(bi.getGraphics());
 					    	try{
 					    		javax.imageio.ImageIO.write(bi, "jpg", file);
 					    	}catch(IOException e1){
@@ -203,8 +212,7 @@ public class Main extends JFrame {
 	
 	}
 	private final void packgui(){
-		//pack();
-		jc.repaint();
+		
 	}
 
 	
