@@ -21,8 +21,13 @@ public abstract class Commande extends Instruction
 		mot = string;
 	}	
 	
-	public int Conv(double x)
+	public int ConvInt(double x)
 	{
 		return( (int)Math.round(x) ) ;
+	}
+	
+	public double ConvRadian(double x)
+	{
+		return ( (x * Math.PI) / 180 );
 	}
 }
