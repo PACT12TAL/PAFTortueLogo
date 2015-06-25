@@ -88,10 +88,12 @@ public class JCanvas extends JPanel {
     public void rotateTurtleLeft(double angle)
     {	
         tortue.setAngle(tortue.getAngle()+angle);
+        repaint();
     }
     public void rotateTurtleRight(double angle)
     {	
         tortue.setAngle(tortue.getAngle()-angle);
+        repaint();
     }
     
     public void setPenSize(int size)
