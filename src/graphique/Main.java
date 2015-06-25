@@ -5,7 +5,10 @@ import parser.parser_logo;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 
 import classeDuProgramme.*;
@@ -42,7 +45,7 @@ public class Main extends JFrame {
 		p2=new JPanel();
 		p2.setBackground(Color.WHITE);
 		
-		b1=new JButton("Exécuter"); 
+		b1=new JButton("Executer"); 
 		b2=new JButton("Efface");  //add listener to "Clear" button
 		lab=new JLabel("");
 		text=new JTextArea("Ecrivez vos commandes", 4, 10);   
@@ -162,7 +165,18 @@ public class Main extends JFrame {
 			item.addActionListener(new ActionListener(){
 				 public void actionPerformed(ActionEvent event) {
 					   JFileChooser chooser = new JFileChooser();
-					    chooser.showSaveDialog(null);
+					    int returnVal=chooser.showSaveDialog(null);
+					    
+					    if (returnVal==JFileChooser.APPROVE_OPTION){
+					    	File file = chooser.getSelectedFile();
+					    	BufferedImage bi=(BufferedImage) jp.createImage(jc.getWidth(),jc.getHeight());
+					    	jp.paint(bi.getGraphics());
+					    	try{
+					    		javax.imageio.ImageIO.write(bi, "jpg", file);
+					    	}catch(IOException e1){
+					    		e1.printStackTrace();
+					    	}
+					    }
 				    }
 			});
 			fichierMenu.insertSeparator(1);
