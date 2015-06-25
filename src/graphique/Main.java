@@ -54,10 +54,18 @@ public class Main extends JFrame {
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
 		
-		JPanel jp =new JPanel();
+		JPanel jp =new JPanel() {
+			public void paint(Graphics g) {
+				super.paint(g); 
+				g.setColor(Color.WHITE);
+				g.fillRect(0, 0, getWidth(), getHeight());
+				jc.setLocation(jc.getParent().getWidth()/2-jc.getWidth()/2, 0);
+				jc.repaint();
+			}
+		};
 		jp.setLayout(null);
 
-		jp.add(jc);
+		jp.add(jc,BorderLayout.CENTER);
 		jc.setSize(800,800);
 		jc.rotateTurtleRight(1.50);
 		
@@ -194,8 +202,7 @@ public class Main extends JFrame {
 	
 	}
 	private final void packgui(){
-		//pack();
-		jc.repaint();
+		
 	}
 
 	
