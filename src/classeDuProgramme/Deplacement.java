@@ -32,6 +32,7 @@ public class Deplacement extends Commande
 				
 			case "tournedroite":
 				etatApres.addToAngle(nombre);
+				programme.getFeuille().rotateTurtle(etatApres.getAngle());
 				break;
 				
 			case "tournegauche":
